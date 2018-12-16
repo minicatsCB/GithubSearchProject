@@ -1,18 +1,15 @@
 function requestData(url) {
-    fetch(url, {
-        headers: {
-            "Authorization": " token " + token
-        }
-    })
-       .then(getStatus)
-       .then(getJson)
-       .then(function(data) {
-           console.log("Received data: ", data);
-           displayProfileInView(data);
-       })
-       .catch(function(err) {
-           console.error("An error ocurred while fetching data: ", err);
-       });
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            headers: {
+                "Authorization": " token " + token
+            }
+        })
+           .then(getStatus)
+           .then(getJson)
+           .then(resolve)
+           .catch(reject);
+    });
 }
 
 function getStatus(response) {
@@ -29,8 +26,34 @@ function getJson(response) {
 }
 
 function requestProfileData() {
-    requestData(url);
     var url = baseUrl + "minicatsCB";
+    requestData(url)
+        .then(data => {
+            if (!data.email) {
+                requestEventsData(data);
+            }
+            displayProfileInView(data);
+        })
+        .catch(err => {
+            console.error("An error ocurred while fetching data: ", err);
+        });
+}
+
+function requestEventsData(data){
+    var url = baseUrl + "minicatsCB/events";
+    return requestData(url)
+        .then(events => {
+            var regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/;
+            var results = regex.exec(JSON.stringify(events));
+            if (results) {
+                data.email = results[0];
+            }
+
+            displayProfileInView();
+        })
+        .catch(err => {
+            console.error("An error ocurred while fetching data: ", err);
+        });;
 }
 
 function displayProfileInView(data) {
