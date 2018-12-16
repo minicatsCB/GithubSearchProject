@@ -29,8 +29,8 @@ function getJson(response) {
 }
 
 function requestProfileData() {
-    var url = baseUrl + "/users/minicatsCB";
     requestData(url);
+    var url = baseUrl + "minicatsCB";
 }
 
 function displayProfileInView(data) {
