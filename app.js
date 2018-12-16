@@ -1,5 +1,19 @@
-function requestProfileData() {
-    var url = baseUrl + "minicatsCB";
+document.getElementsByClassName("form-inline")[0].addEventListener("submit", function(ev) {
+    ev.preventDefault();
+});
+
+document.getElementById("search-btn").addEventListener("click", searchUserByUsername);
+
+function searchUserByUsername(){
+    var username = document.getElementById("username-input").value;
+
+    if(username){
+        requestProfileData(username);
+    }
+}
+
+function requestProfileData(username) {
+    var url = baseUrl + username;
     requestData(url)
         .then(data => {
             if (!data.email) {
@@ -15,7 +29,7 @@ function requestProfileData() {
 }
 
 function requestEventsData(data){
-    var url = baseUrl + "minicatsCB/events";
+    var url = baseUrl + data.login + "/events";
     return requestData(url)
         .then(events => {
             var regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/;
