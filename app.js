@@ -48,19 +48,19 @@ function displayProfileInView(data) {
     var detailsElement = document.getElementById("details");
 
     var summaryMarkup = replaceNullData`
-        <div class="col-12">
+        <div class="py-5">
             <img class="w-50 mx-auto d-block" src=${data.avatar_url}>
         </div>
-        <div class="col-12">
+        <div>
             <p>Username: ${data.login}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Name: ${data.name}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Bio: ${data.bio}/<p>
         </div>
-        <div class="col-12">
+        <div class="pb-3">
             <p>Email: ${data.email}</p>
         </div>
     `;
@@ -68,37 +68,37 @@ function displayProfileInView(data) {
     summaryElement.innerHTML = summaryMarkup;
 
     var detailsMarkup = replaceNullData`
-        <div class="col-12">
+        <div class="pt-3">
             <p>Is admin: ${data.site_admin}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Company: ${data.company}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Blog: ${data.blog}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Location: ${data.location}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Hireable: ${data.hireable}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Public repos: ${data.public_repos}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Public gists: ${data.public_gists}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Followers: ${data.followers}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Following: ${data.following}</p>
         </div>
-        <div class="col-12">
+        <div>
             <p>Created at: ${data.created_at}</p>
         </div>
-        <div class="col-12">
+        <div class="pb-3">
             <p>Updated at: ${data.updated_at}</p>
         </div>
     `;
